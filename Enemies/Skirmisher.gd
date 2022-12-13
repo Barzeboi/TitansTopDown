@@ -24,7 +24,6 @@ var state = PATROLLING
 func _physics_process(_delta):
 	var distance = position.distance_to(player.global_position)
 	var direction = position.direction_to(player.global_position)
-	var enemypos = position
 
 	match state:
 		PATROLLING:
