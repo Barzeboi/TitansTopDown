@@ -1,7 +1,9 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Characters/TestPlayer.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TestCharacter/player_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://Characters/Pivot.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Pistol.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9, 16 )
@@ -559,3 +561,23 @@ parameters/playback = SubResource( 3 )
 texture = ExtResource( 2 )
 hframes = 16
 vframes = 3
+
+[node name="Pivot" type="Node2D" parent="."]
+rotation = -1.5708
+script = ExtResource( 3 )
+
+[node name="Gun" type="Sprite" parent="Pivot"]
+position = Vector2( 30, 0 )
+texture = ExtResource( 4 )
+
+[node name="Position2D" type="Position2D" parent="Pivot/Gun"]
+position = Vector2( 10, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+rotating = true
+current = true
+zoom = Vector2( 0.8, 0.8 )
+drag_margin_left = 0.7
+drag_margin_top = 0.7
+drag_margin_right = 0.7
+drag_margin_bottom = 0.7

@@ -1,15 +1,18 @@
-extends KinematicBody2D
+extends Enemy
 
 
-var velocity 
+
 var speed = 250
 var skirm_speed = 150
-export var health = 300
+export var health = 200
 onready var player = get_node("/root/TestMap/TestPlayer")
+var damage = rand_range(25, 40)
+
 export var sight_range = 350
 export var attack_range = 250
 export var skirm_range = 100
 
+	
 #Controls the states for AI Behavior. Do not delete, you dunce.
 enum {
 	PATROLLING
@@ -19,11 +22,15 @@ enum {
 	FLEEING
 }
 
+
+
 var state = PATROLLING
 
 func _physics_process(_delta):
 	var distance = position.distance_to(player.global_position)
 	var direction = position.direction_to(player.global_position)
+	var enemypos = position
+	
 
 	match state:
 		PATROLLING:
@@ -62,4 +69,18 @@ func _physics_process(_delta):
 					state = PURSUING
 		FLEEING:
 			pass
+			
+			
+
 	
+	
+func take_damage():
+	health = health - damage
+	position.x = position.x + 10
+	if health <= 0:
+		on_die()
+		
+		
+func on_die():
+	get_node("AnimatedSprite").visible = false
+	get_node("Area2D/CollisionShape2D").disabled = true

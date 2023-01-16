@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Robot/robot_patrol_up.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Robot/robot_patrol_left.png" type="Texture" id=2]
@@ -72,15 +72,25 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 11, 16 )
 
-[node name="Skirmisher" type="KinematicBody2D"]
-collision_layer = 4
-collision_mask = 3
+[sub_resource type="RectangleShape2D" id=11]
+
+[node name="Skirmisher" type="KinematicBody2D" groups=["Enemies"]]
 script = ExtResource( 5 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." groups=["Enemies"]]
 frames = SubResource( 9 )
 animation = "patrol_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemies"]]
 position = Vector2( 1, 0 )
 shape = SubResource( 10 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
+collision_layer = 4
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Enemies"]]
+shape = SubResource( 11 )
+
+[connection signal="on_die" from="." to="." method="on_die"]
+[connection signal="area_entered" from="Area2D" to="." method="take_damage"]
