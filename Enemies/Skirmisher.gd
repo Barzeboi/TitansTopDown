@@ -1,12 +1,13 @@
 extends Enemy
 
 
-
 var speed = 250
 var skirm_speed = 150
 export var health = 200
 onready var player = get_node("/root/TestMap/TestPlayer")
 var damage = rand_range(25, 40)
+onready var animatedsprite = get_node("AnimatedSprite")
+onready var areacollision = get_node("Area2D/HitBox")
 
 export var sight_range = 350
 export var attack_range = 250
@@ -80,7 +81,6 @@ func take_damage():
 	if health <= 0:
 		on_die()
 		
-		
 func on_die():
-	get_node("AnimatedSprite").visible = false
-	get_node("Area2D/CollisionShape2D").disabled = true
+	animatedsprite.visible = false
+	get_node("Area2D/HitBox").disabled = true
